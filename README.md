@@ -26,11 +26,18 @@ A Simple authentication API built with **Django Rest Framework** using:
 
 - 'POST /api/login/' - Login and get tokens
 - 'POST /api/refresh/' - Refresh access tokens
-- 'GET /api/protected/' - Protcted endpoint
+- 'GET /api/protected/' - Protected endpoint
+- 'POST /api/logout/' - logged out and tokens get deleted
+
+# Logout Endpoint
+
+- Added a logout endpoint to revoke opaque refresh tokens
+- when a user logs out, their refresh token is deleted from the database
+- Access token will expire manually after their short lifetime
+- Ensure that old refresh tokens cannot be reused
 
 ## Notes
 
 This project was built for learning purposes and improved based on feedbacks from fellow developers.
 Suggestions and improvements are welcomed
-- 
 - 
