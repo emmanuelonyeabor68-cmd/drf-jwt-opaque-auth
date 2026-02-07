@@ -85,6 +85,29 @@ class RefreshView(APIView):
             "access": str(new_access),
             "refresh": new_refresh.token
         })
+    
+class LogoutView(APIView):
+    def post(self, request): 
+        refresh_Token = request.data.get("refresh")
+
+        if not refresh_Token:
+            return Response(
+                {"detail": "Refresh token required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            token = RefreshToken.objects.get(token=refresh_Token)
+            token.delete()
+
+            return Response(
+                {"detail": "logged out successfully"},
+                status=status.HTTP_200_OK
+            )  
+        except RefreshToken.DoesNotExist:
+            return Response(
+                {"detail": "Invalid refresh token"},
+                status=status.HTTP_400_BAD_REQUEST
+            ) 
                
 
 
