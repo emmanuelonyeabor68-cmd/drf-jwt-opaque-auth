@@ -65,9 +65,16 @@ class RefreshView(APIView):
         
         if not refresh.is_valid():
             return Response({
-                "message": "Expired or revoked"
+                "message": "Token reuse detected. Expired or revoked"
             },
             status=status.HTTP_401_UNAUTHORIZED)
+        
+        #if refresh.revoked:
+         #   RefreshToken.objects.filter(user=refresh.user).update(revoked=True)
+          #  return Response(
+           #     {"message": "Token reuse detected. Please logon again"},
+            #status=status.HTTP_401_UNAUTHORIZED    
+        #    )
         
         refresh.revoked = True
         refresh.save()
