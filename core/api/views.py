@@ -4,11 +4,16 @@ from django.contrib.auth import authenticate
 from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
+from .throttles import LoginRateThrottle
+from .throttles import RefreshRateThrottle
+
 
 from .models import RefreshToken
 
@@ -16,6 +21,7 @@ from .models import RefreshToken
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request):
         user = authenticate(
@@ -51,6 +57,7 @@ class LoginView(APIView):
 
 class RefreshView(APIView):
     permission_classes = [AllowAny]
+    throttle_classes = [RefreshRateThrottle]
 
     def post(self, request):
         token = request.data.get("refresh")
