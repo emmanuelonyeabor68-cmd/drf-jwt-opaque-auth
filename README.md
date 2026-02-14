@@ -1,4 +1,4 @@
-DJANGO JWT AUTH PROJECT
+# DJANGO JWT AUTH PROJECT
 
 A simple and secure authentication system using Django REST Framework and JWT tokens.
 
