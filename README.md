@@ -1,40 +1,60 @@
-# Secure DRF Authentication API
+DJANGO JWT AUTH PROJECT
 
-A Simple authentication API built with **Django Rest Framework** using:
+A simple and secure authentication system using Django REST Framework and JWT tokens.
 
-- JWT for access token
-- Opaque tokens for refresh
-- Refresh token rotation for better security
+# Features:
 
-## What this project does
+- User registration
 
-- Users log in with username and password
-- API returns a short lived JWT access token
-- API also returns an opaque refresh token
-- When access expires, refresh token is used to get new tokens
-- Old refresh tokens are revoked automatically
+- Login with access & refresh tokens
 
- # Tech Stack
+- Token refresh
 
- - Python
- - Django
- - Django Rest Framework
- - SimpleJWT
- - Postman (for testing)
+- Logout with token blacklisting
 
-# Endpoints
+- Protected routes
 
-- 'POST /api/login/' - Login and get tokens
-- 'POST /api/refresh/' - Refresh access tokens
-- 'GET /api/protected/' - Protected endpoint
-- 'POST /api/logout/' - logged out and tokens get deleted
+- Rate limiting
 
-# Logout Endpoint
+- Postman collection for testing
 
-- Added a logout endpoint to revoke opaque refresh tokens
-- when a user logs out, their refresh token is deleted from the database
-- Access token will expire manually after their short lifetime
-- Ensure that old refresh tokens cannot be reused
+# Tech Stack
+
+- Python – Backend language
+
+- Django & DRF – Web framework & API tools
+
+- djangorestframework-simplejwt – JWT authentication
+
+- SQLite – Default database
+
+- Postman – API testing & documentation
+
+# Setup
+
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+
+# API Endpoints
+
+POST /register/ – Create a new user
+
+POST /login/ – Get access & refresh tokens
+
+POST /refresh/ – Refresh access token
+
+POST /logout/ – Logout & blacklist token
+
+Protected endpoints require Authorization: Bearer <access_token> header.
+
+# Author
+
+Built with persistence and learning every day.
 
 ## Notes
 
